@@ -32,3 +32,43 @@ function fibsRec(number) {
 
 const fibonacciSequence = fibsRec(8);
 console.log(fibonacciSequence);
+
+function mergeSort(arr) {
+  if (arr.length === 1) return arr;
+  else {
+    // split them pass in left sub and right sub
+    const middleIndex = Math.floor(arr.length / 2);
+    const leftSubArr = arr.splice(0, middleIndex);
+    const rightSubArr = arr.splice(0);
+    const leftArr = mergeSort(leftSubArr);
+    const rightArr = mergeSort(rightSubArr);
+    const newArr = [];
+    let leftPointer = 0;
+    let rightPointer = 0;
+    const completeArrayLength = rightArr.length + leftArr.length;
+
+    for (let index = 0; index < completeArrayLength; index++) {
+      if (leftArr[leftPointer] < rightArr[rightPointer]) {
+        newArr.push(leftArr[leftPointer]);
+        leftPointer++;
+        // check if pointer reach arr length then insert all and return new arr
+        if (leftPointer === leftArr.length) {
+          newArr.push(...rightArr.splice(rightPointer));
+          return newArr;
+        }
+      } else if (leftArr[leftPointer] >= rightArr[rightPointer]) {
+        newArr.push(rightArr[rightPointer]);
+        rightPointer++;
+        // check if pointer reach arr length then insert all and return new arr
+        if (rightPointer === rightArr.length) {
+          newArr.push(...leftArr.splice(leftPointer));
+          return newArr;
+        }
+      }
+    }
+    return newArr;
+  }
+}
+
+const sortedArr = mergeSort([2, 3, 1, 4122, 9, 434, 56]);
+console.log(sortedArr);
