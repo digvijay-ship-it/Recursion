@@ -13,5 +13,22 @@ function fibs(number) {
   return arr;
 }
 
-const fibonacciSequence = fibs(8);
+function fibsRec(number) {
+  if (number === 0) {
+    return [];
+  } else if (number === 1) {
+    return [1];
+  } else if (number === 2) {
+    return [0, 1];
+  } else {
+    const arr = fibsRec(number - 1);
+    const lastIndex = arr.length;
+    const secondLast = arr[lastIndex - 2];
+    const last = arr[lastIndex - 1];
+    arr.push(secondLast + last);
+    return arr;
+  }
+}
+
+const fibonacciSequence = fibsRec(8);
 console.log(fibonacciSequence);
